@@ -1,5 +1,7 @@
 # olcPGEX_ViewPort
 
+![example](/ExampleImage.png)
+
 An extension that allows you to draw decals only to a certain part of the
 screen.
 
