@@ -130,7 +130,6 @@ namespace olc {
 
 // Definitions
 
-#define OLC_PGEX_VIEWPORT
 #ifdef OLC_PGEX_VIEWPORT
 #undef OLC_PGEX_VIEWPORT
 
