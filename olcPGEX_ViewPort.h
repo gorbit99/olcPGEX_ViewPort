@@ -360,7 +360,7 @@ void olc::ViewPort::FillRectDecal(const vf2d &pos,
             pos,
             {pos.x, pos.y + size.y},
             pos + size,
-            {pos.x + size.y, pos.y},
+            {pos.x + size.x, pos.y},
     };
     std::vector<vf2d> uvs{
             {0, 0},
@@ -382,7 +382,7 @@ void olc::ViewPort::GradientFillRectDecal(const vf2d &pos,
             pos,
             {pos.x, pos.y + size.y},
             pos + size,
-            {pos.x + size.y, pos.y},
+            {pos.x + size.x, pos.y},
     };
 
     std::vector<vf2d> uvs{
