@@ -195,11 +195,7 @@ void olc::ViewPort::DrawPartialDecal(const olc::vf2d &pos,
                                      const olc::vf2d &source_size,
                                      const olc::vf2d &scale,
                                      const olc::Pixel &tint) const {
-    auto size = olc::vf2d{static_cast<float>(decal->sprite->width),
-                          static_cast<float>(decal->sprite->height)}
-                * scale;
-
-    DrawPartialDecal(pos, size, decal, source_pos, source_size, tint);
+    DrawPartialDecal(pos, source_size * scale, decal, source_pos, source_size, tint);
 }
 
 void olc::ViewPort::DrawPartialDecal(const vf2d &pos,
@@ -364,7 +360,7 @@ void olc::ViewPort::FillRectDecal(const vf2d &pos,
             pos,
             {pos.x, pos.y + size.y},
             pos + size,
-            {pos.x + size.y, pos.y},
+            {pos.x + size.x, pos.y},
     };
     std::vector<vf2d> uvs{
             {0, 0},
@@ -386,7 +382,7 @@ void olc::ViewPort::GradientFillRectDecal(const vf2d &pos,
             pos,
             {pos.x, pos.y + size.y},
             pos + size,
-            {pos.x + size.y, pos.y},
+            {pos.x + size.x, pos.y},
     };
 
     std::vector<vf2d> uvs{
@@ -403,7 +399,7 @@ void olc::ViewPort::GradientFillRectDecal(const vf2d &pos,
             colTR,
     };
 
-    drawClippedDecal(nullptr, points.data(), uvs.data(), colors.data());
+    drawClippedDecal(nullptr, points.data(), uvs.data(), colors.data(), points.size());
 }
 
 void olc::ViewPort::DrawPolygonDecal(Decal *decal,
@@ -416,7 +412,7 @@ void olc::ViewPort::DrawPolygonDecal(Decal *decal,
         colors[i] = tint;
     }
 
-    drawClippedDecal(decal, pos.data(), uv.data(), colors.data());
+    drawClippedDecal(decal, pos.data(), uv.data(), colors.data(), pos.size());
 }
 
 void olc::ViewPort::DrawPolygonDecal(Decal *decal,
@@ -431,7 +427,7 @@ void olc::ViewPort::DrawPolygonDecal(Decal *decal,
                                      const std::vector<vf2d> &pos,
                                      const std::vector<vf2d> &uv,
                                      const std::vector<Pixel> &tint) const {
-    drawClippedDecal(decal, pos.data(), uv.data(), tint.data());
+    drawClippedDecal(decal, pos.data(), uv.data(), tint.data(), pos.size());
 }
 
 void olc::ViewPort::DrawLineDecal(const vf2d &pos1,
@@ -459,7 +455,7 @@ void olc::ViewPort::DrawLineDecal(const vf2d &pos1,
         }
     }
 
-    pge->DrawLineDecal(posA, posB, p);
+    pge->DrawLineDecal(posA + offset, posB + offset, p);
 }
 
 void olc::ViewPort::drawClippedDecal(Decal *decal,
