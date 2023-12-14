@@ -195,11 +195,7 @@ void olc::ViewPort::DrawPartialDecal(const olc::vf2d &pos,
                                      const olc::vf2d &source_size,
                                      const olc::vf2d &scale,
                                      const olc::Pixel &tint) const {
-    auto size = olc::vf2d{static_cast<float>(decal->sprite->width),
-                          static_cast<float>(decal->sprite->height)}
-                * scale;
-
-    DrawPartialDecal(pos, size, decal, source_pos, source_size, tint);
+    DrawPartialDecal(pos, source_size * scale, decal, source_pos, source_size, tint);
 }
 
 void olc::ViewPort::DrawPartialDecal(const vf2d &pos,
