@@ -14,6 +14,7 @@ namespace olc {
     class ViewPort : public olc::PGEX {
     public:
         ViewPort();
+        //Define a set of vertices to construct this viewport with. Winding order is counter-clockwise.
         ViewPort(std::vector<vf2d> vertices, vf2d offset = {0, 0});
         virtual ~ViewPort();
         void addPoint(vf2d point);
@@ -570,7 +571,7 @@ void olc::ViewPort::drawClippedDecal(Decal *decal,
 
     for (auto i = 0u; i < clipVertices.size(); i++) {
         auto clipA = clipVertices[i];
-        auto clipB = clipVertices[(i + 1) % 4];
+        auto clipB = clipVertices[(i + 1) % clipVertices.size()];
 
         auto inputList{outputList};
         auto inputUvs{outputUvs};
@@ -640,7 +641,7 @@ void olc::ViewPort::drawClippedPolygonDecal(Decal *decal,
 
     for (auto i = 0u; i < clipVertices.size(); i++) {
         auto clipA = clipVertices[i];
-        auto clipB = clipVertices[(i + 1) % 4];
+        auto clipB = clipVertices[(i + 1) % clipVertices.size()];
 
         auto inputList{outputList};
         auto inputUvs{outputUvs};
